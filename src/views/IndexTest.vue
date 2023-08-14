@@ -1,13 +1,16 @@
 <template lang="pug">
 el-container
-  el-header 新竹城滷味
+  el-header 新竹成滷味
   el-container.content
-    el-aside(width="120px")
-      div.shopping-cart(v-for="(product, index) in shoppingCart")
-        span {{ product.name }}
-        span.price
-          span ({{ product.count }}) &nbsp;
-          span ${{ product.count * product.prize }}
+    el-aside(width="160px")
+      div.shopping-cart.product-detail(v-for="(product, index) in shoppingCart")
+        span.product-name {{ product.name }}({{ product.count }}) ${{ product.count * product.prize }}
+        el-button(
+            @click="removeCart(product)"
+            size="mini"
+            icon="el-icon-minus"
+            circle
+          )
     el-container.container
       el-main
         .category-bar
@@ -19,7 +22,8 @@ el-container
             v-for="(item, index) in currentMenu"
             shadow="hover"
           )
-            div {{ item.name }}
+            div.product-detail
+              span.product-name {{ item.name }} ${{ item.prize }}
               el-button(
                 @click="addCart(item)"
                 size="mini"
@@ -27,7 +31,13 @@ el-container
                 circle
               )
   .footer
-    .total 共計{{ total.count }}樣 {{ total.prize }}元
+    .total
+      span 共計{{ total.count }}樣 {{ total.prize }}元
+      el-button.cp-btn(
+        @click="copy()"
+        size="mini"
+        icon="el-icon-document-copy"
+      ) 複製點餐欄
 </template>
 
 <script>
@@ -55,7 +65,7 @@ el-container
         menu: {
           meat: [
             {
-              name: '豬肉',
+              name: '豬肉片',
               prize: 35,
             },
             {
@@ -88,6 +98,14 @@ el-container
               name: '木耳',
               prize: 35,
             },
+            {
+              name: '玉米筍',
+              prize: 35,
+            },
+            {
+              name: '水蓮',
+              prize: 35,
+            },
           ],
           ball: [
             {
@@ -97,6 +115,18 @@ el-container
             {
               name: '雲餃',
               prize: 35,
+            },
+            {
+              name: '魚蛋',
+              prize: 35,
+            },
+            {
+              name: '黃金蛋',
+              prize: 35,
+            },
+            {
+              name: '起司丸',
+              prize: 10,
             },
             {
               name: '鑫鑫腸',
@@ -121,6 +151,27 @@ el-container
             count: 1,
           });
         }
+      },
+      removeCart(item) {
+        let found = this.shoppingCart.find(selected => selected.name === item.name);
+        if (found.count > 1) {
+          found.count--;
+        } else {
+          const index = this.shoppingCart.findIndex(object => {
+            return object.name === item.name;
+          });
+          this.shoppingCart.splice(index, 1);
+        }
+      },
+      copy() {
+        let text = '';
+        this.shoppingCart.forEach(item => {
+          const single = item.name
+            + '(' + item.count + ')'
+            + '$' + (item.count * item.prize);
+          text = text + single + '\n';
+        });
+        navigator.clipboard.writeText(text);
       }
     }
   }
@@ -132,6 +183,7 @@ el-container
     height: 500px;
   }
   .container {
+    font-size: 20px;
     background-color: #EFE2CE;
     .category-bar {
       text-align: center;
@@ -141,6 +193,12 @@ el-container
       display: inline-block;
       margin-right: 10px;
       width: 200px;
+    }
+  }
+  .product-detail {
+    display: flex;
+    .product-name {
+      flex: 1;
     }
   }
   .el-header {
@@ -166,7 +224,10 @@ el-container
     background-color: #DEC298;
     color: #333;
     .total {
-      margin-right: 50px;
+      padding: 0px 50px 0px 0px;
+      .cp-btn {
+        margin-left: 20px;
+      }
     }
   }
 </style>
