@@ -2,7 +2,7 @@
 el-container
   el-header 新竹成滷味
   el-container.content
-    el-aside(width="160px")
+    el-aside(width="180px")
       div.shopping-cart.product-detail(v-for="(product, index) in shoppingCart")
         span.product-name {{ product.name }}({{ product.count }}) ${{ product.count * product.prize }}
         el-button(
@@ -14,9 +14,18 @@ el-container
     el-container.container
       el-main
         .category-bar
-          el-button(size="medium" @click="getMenu('meat')") 肉類
-          el-button(size="medium" @click="getMenu('vegetable')") 青菜
-          el-button(size="medium" @click="getMenu('ball')") 丸子
+          el-button(
+            @click="getMenu('meat')"
+            round
+          ) 肉類
+          el-button(
+            @click="getMenu('vegetable')"
+            round
+          ) 青菜
+          el-button(
+            @click="getMenu('ball')"
+            round
+          ) 丸子
         .menu-content
           el-card.product(
             v-for="(item, index) in currentMenu"
@@ -171,6 +180,10 @@ el-container
             + '$' + (item.count * item.prize);
           text = text + single + '\n';
         });
+        this.$notify({
+          type: 'success',
+          title: '成功複製',
+        });
         navigator.clipboard.writeText(text);
       }
     }
@@ -179,6 +192,7 @@ el-container
 
 <style>
   .content {
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
     display: flex;
     height: 500px;
   }
