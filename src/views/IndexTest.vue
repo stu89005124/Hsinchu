@@ -1,47 +1,29 @@
 <template lang="pug">
 el-container
   el-header 新竹成滷味
-  el-container.content
-    el-aside(width="180px")
-      div.shopping-cart.product-detail(v-for="(product, index) in shoppingCart")
-        span.product-name {{ product.name }}({{ product.count }}) ${{ product.count * product.prize }}
-        el-button(
-            @click="removeCart(product)"
-            size="mini"
-            icon="el-icon-minus"
-            circle
+  el-tabs(v-model="current")
+    el-tab-pane(
+      v-for="(tab, key) in tabs"
+      :label="tab.label"
+      :name="tab.name"
+    )
+      .content
+        .product(
+          v-for="(item, index) in currentMenu"
+          :class="[item.count > 0 ? 'selected' : '']"
+        )
+          span.name {{ item.name }} &nbsp; ${{ item.prize }}
+          el-input-number.btn(
+            :disabled="item.disable"
+            :min="0"
+            :max="20"
+            v-model="item.count"
           )
-    el-container.container
-      el-main
-        .category-bar
-          el-button(
-            @click="getMenu('meat')"
-            round
-          ) 肉類
-          el-button(
-            @click="getMenu('vegetable')"
-            round
-          ) 青菜
-          el-button(
-            @click="getMenu('ball')"
-            round
-          ) 丸子
-        .menu-content
-          el-card.product(
-            v-for="(item, index) in currentMenu"
-            shadow="hover"
-          )
-            div.product-detail
-              span.product-name {{ item.name }} ${{ item.prize }}
-              el-button(
-                @click="addCart(item)"
-                size="mini"
-                icon="el-icon-plus"
-                circle
-              )
   .footer
-    .total
-      span 共計{{ total.count }}樣 {{ total.prize }}元
+    i(class="el-icon-shopping-cart-2")
+    span.total 共計{{ total.count }}樣 {{ total.prize }}元
+    el-checkbox(v-for="(detail, key) in remark" v-model="detail.check") {{ detail.name }}
+    div(style="text-align:center")
       el-button.cp-btn(
         @click="copy()"
         size="mini"
@@ -60,160 +42,451 @@ el-container
           count: 0,
           prize: 0,
         };
-        this.shoppingCart.forEach(item => {
-          total.count += item.count;
-          total.prize += item.count * item.prize;
+        Object.entries(this.menu).forEach(category => {
+          category[1].forEach(item => {
+            total.count += item.count;
+            total.prize += item.count * item.prize;
+          })
         });
+
         return total;
       },
     },
     data() {
       return {
+        tabs: [
+          {
+            name: 'meat',
+            label: '肉類',
+          },
+          {
+            name: 'vegetable',
+            label: '青菜',
+          },
+          {
+            name: 'other',
+            label: '火鍋料、其他',
+          },
+          {
+            name: 'noodle',
+            label: '麵類',
+          }
+        ],
         shoppingCart: [],
         current: 'meat',
         menu: {
           meat: [
             {
+              name: '豬腱肉(1兩)',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '豬耳朵',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
               name: '豬肉片',
               prize: 35,
+              count: 0,
+              disable: false
             },
             {
-              name: '牛肉',
+              name: '雞肉串',
               prize: 35,
+              count: 0,
+              disable: false
             },
             {
-              name: '雞肉',
+              name: '豬心',
               prize: 35,
+              count: 0,
+              disable: false
             },
             {
-              name: '腱肉',
+              name: '豬皮',
               prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '鴨胗',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '鴨心',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '豆腐鴨血(冬天限定)',
+              prize: 35,
+              count: 0,
+              disable: true
+            },
+            {
+              name: '大腸(1兩)',
+              prize: 50,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '牛肉片',
+              prize: 50,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '鴨腸',
+              prize: 50,
+              count: 0,
+              disable: false
             },
           ],
           vegetable: [
             {
+              name: '蘿蔔',
+              prize: 10,
+              count: 0,
+              disable: false
+            },
+            {
               name: '高麗菜',
               prize: 35,
+              count: 0,
+              disable: false
             },
             {
               name: '空心菜',
               prize: 35,
+              count: 0,
+              disable: false
             },
             {
               name: '花椰菜',
               prize: 35,
+              count: 0,
+              disable: false
             },
             {
-              name: '木耳',
+              name: '大陸妹',
               prize: 35,
+              count: 0,
+              disable: true
             },
             {
-              name: '玉米筍',
+              name: '娃娃菜',
               prize: 35,
+              count: 0,
+              disable: false
             },
             {
               name: '水蓮',
               prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '金針菇',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '秀珍菇',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '四季豆',
+              prize: 35,
+              count: 0,
+              disable: true
+            },
+            {
+              name: '玉米筍',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '小黃瓜',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '香菇',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '青椒',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '絲瓜',
+              prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '木耳',
+              prize: 35,
+              count: 0,
+              disable: false
             },
           ],
-          ball: [
+          noodle: [
+            {
+              name: '科學麵',
+              prize: 20,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '冬粉',
+              prize: 20,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '烏龍麵',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '關廟麵',
+              prize: 25,
+              count: 0,
+              disable: false
+            }
+          ],
+          other: [
+            {
+              name: '水晶餃(2顆)',
+              prize: 10,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '乳酪絲起司丸(1顆)',
+              prize: 10,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '海帶(1片)',
+              prize: 10,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '小豆干(3塊)',
+              prize: 20,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '蟹肉棒(3個)',
+              prize: 20,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '甜不辣(3片)',
+              prize: 20,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '招牌米血',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '芋頭糕',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '大豆皮',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '黑豆干',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '蘭花干',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '竹輪',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '豆包',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '米腸',
+              prize: 25,
+              count: 0,
+              disable: false
+            },
             {
               name: '貢丸',
-              prize: 35,
+              prize: 30,
+              count: 0,
+              disable: false
             },
             {
-              name: '雲餃',
-              prize: 35,
+              name: '魚餃',
+              prize: 30,
+              count: 0,
+              disable: false
             },
             {
-              name: '魚蛋',
-              prize: 35,
+              name: '黃金魚蛋',
+              prize: 30,
+              count: 0,
+              disable: false
             },
             {
-              name: '黃金蛋',
-              prize: 35,
+              name: '鳥蛋',
+              prize: 30,
+              count: 0,
+              disable: false
             },
             {
-              name: '起司丸',
-              prize: 10,
+              name: '素腰花',
+              prize: 30,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '大黑輪',
+              prize: 30,
+              count: 0,
+              disable: false
             },
             {
               name: '鑫鑫腸',
               prize: 35,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '百頁豆腐',
+              prize: 35,
+              count: 0,
+              disable: false
             }
-          ]
+          ],
         },
+        remark: [
+          {
+            name: '微辣',
+            check: false
+          },
+          {
+            name: '小辣',
+            check: false
+          },
+          {
+            name: '中辣',
+            check: false
+          },
+          {
+            name: '大辣',
+            check: false
+          },
+          {
+            name: '不要香油',
+            check: false
+          },
+          {
+            name: '不要榨菜',
+            check: false
+          },
+          {
+            name: '不加醬(只有胡椒、香油)',
+            check: false
+          },
+          {
+            name: '醬多(重口味)',
+            check: false
+          },
+          {
+            name: '醬少(清淡)',
+            check: false
+          },
+        ],
       }
     },
     methods: {
       getMenu(category) {
         this.current = category;
       },
-      addCart(item) {
-        let found = this.shoppingCart.find(selected => selected.name === item.name);
-        if (found) {
-          found.count++;
-        } else {
-          this.shoppingCart.push({
-            name: item.name,
-            prize: item.prize,
-            count: 1,
-          });
-        }
-      },
-      removeCart(item) {
-        let found = this.shoppingCart.find(selected => selected.name === item.name);
-        if (found.count > 1) {
-          found.count--;
-        } else {
-          const index = this.shoppingCart.findIndex(object => {
-            return object.name === item.name;
-          });
-          this.shoppingCart.splice(index, 1);
-        }
-      },
       copy() {
         let text = '';
-        this.shoppingCart.forEach(item => {
-          const single = item.name
-            + '(' + item.count + ')'
-            + '$' + (item.count * item.prize);
-          text = text + single + '\n';
+        Object.entries(this.menu).forEach(category => {
+          category[1].forEach(item => {
+            if (item.count > 0) {
+              const single = item.name
+                + '(' + item.count + ')'
+                + '$' + (item.count * item.prize);
+              text += single + '\n';
+            }
+          })
         });
-        this.$notify({
-          type: 'success',
-          title: '成功複製',
+        this.remark.forEach(item => {
+          if (item.check) {
+            text += item.name + " "
+          }
+        })
+        text += "\n共計" + this.total.count + "樣 " + this.total.prize + " 元";
+        navigator.clipboard.writeText(text).then(()=> {
+          this.$notify({
+            type: 'success',
+            title: '成功複製',
+          });
         });
-        navigator.clipboard.writeText(text);
       }
     }
   }
 </script>
 
 <style>
-  .content {
+  .el-container {
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-    display: flex;
-    height: 500px;
   }
-  .container {
-    font-size: 20px;
-    background-color: #EFE2CE;
-    .category-bar {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .product {
-      display: inline-block;
-      margin-right: 10px;
-      width: 200px;
-    }
-  }
-  .product-detail {
-    display: flex;
-    .product-name {
-      flex: 1;
-    }
+  .el-tabs {
+    padding: 0px 10px 0px 10px;
   }
   .el-header {
     background-color: #DEC298;
@@ -221,27 +494,33 @@ el-container
     text-align: center;
     line-height: 60px;
   }
-
-  .el-aside {
-    height: auto;
-    color: #333;
-    text-align: center;
-    .shopping-cart {
-      border-bottom: 1px rgb(227, 223, 223) solid;
-      margin: 10px 10px 10px 10px;
-      padding-bottom: 5px;
-    }
-  }
-
   .footer {
-    text-align: right;
+    text-align: left;
     background-color: #DEC298;
     color: #333;
-    .total {
-      padding: 0px 50px 0px 0px;
-      .cp-btn {
-        margin-left: 20px;
-      }
+    padding: 5px 10px 5px 10px;
+    .cp-btn {
+      margin-top: 10px;
+      margin-left: 20px;
     }
+    .total {
+      margin-right: 10px;
+    }
+  }
+  .product {
+    height: 60px;
+    margin: 0px 10px 10px 10px;
+    display: flex;
+    align-items: center;
+  }
+  .selected {
+    background-color: rgba(163, 216, 244, 0.127);
+  }
+  .content {
+    height: 450px;
+    overflow-y: auto;
+  }
+  .name {
+    flex: 1;
   }
 </style>
