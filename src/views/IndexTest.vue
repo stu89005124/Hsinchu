@@ -1,5 +1,10 @@
 <template lang="pug">
 el-container
+  textarea(
+    ref="inputRef"
+    :value="text"
+    style="opacity:0;position:fixed; left: -999999px; top: -999999px"
+  )
   el-header 新竹成滷味
   el-tabs(v-model="current")
     el-tab-pane(
@@ -50,6 +55,31 @@ el-container
         });
 
         return total;
+      },
+      text: function () {
+        let temp = '';
+        let hasRemark = false;
+        Object.entries(this.menu).forEach(category => {
+          category[1].forEach(item => {
+            if (item.count > 0) {
+              const single = item.name
+                + '(' + item.count + ')'
+                + '$' + (item.count * item.prize);
+              temp += single + '\n';
+            }
+          })
+        });
+        this.remark.forEach(item => {
+          if (item.check) {
+            hasRemark = true;
+            temp += item.name + " "
+          }
+        });
+        if (hasRemark) {
+          temp += "\n";
+        }
+        temp += "\n共計" + this.total.count + "樣 " + this.total.prize + " 元";
+        return temp;
       },
     },
     data() {
@@ -396,7 +426,7 @@ el-container
             },
             {
               name: '鑫鑫腸',
-              prize: 35,
+              prize: 30,
               count: 0,
               disable: false
             },
@@ -453,29 +483,22 @@ el-container
         this.current = category;
       },
       copy() {
-        let text = '';
-        Object.entries(this.menu).forEach(category => {
-          category[1].forEach(item => {
-            if (item.count > 0) {
-              const single = item.name
-                + '(' + item.count + ')'
-                + '$' + (item.count * item.prize);
-              text += single + '\n';
-            }
-          })
-        });
-        this.remark.forEach(item => {
-          if (item.check) {
-            text += item.name + " "
-          }
-        })
-        text += "\n共計" + this.total.count + "樣 " + this.total.prize + " 元";
-        navigator.clipboard.writeText(text).then(()=> {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(this.text).then(()=> {
+            this.$notify({
+              type: 'success',
+              title: '成功複製',
+            });
+          });
+        } else if (this.$refs.inputRef.value) {
+          this.$refs.inputRef.value = this.text;
+          this.$el.querySelector('textarea').select();
+          document.execCommand('copy');
           this.$notify({
             type: 'success',
             title: '成功複製',
           });
-        });
+        }
       }
     }
   }
