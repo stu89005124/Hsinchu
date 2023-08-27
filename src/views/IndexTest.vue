@@ -24,16 +24,31 @@ el-container
             :max="20"
             v-model="item.count"
           )
+
   .footer
-    i(class="el-icon-shopping-cart-2")
-    span.total 共計{{ total.count }}樣 {{ total.prize }}元
-    el-checkbox(v-for="(detail, key) in remark" v-model="detail.check") {{ detail.name }}
+    .flavor
+      .mg-bottom
+        i(class="el-icon-shopping-cart-2")
+        span 共計{{ total.count }}樣 {{ total.prize }}元
+      el-radio-group(v-model="spicy")
+        el-radio.mg-bottom(
+          v-for="(item, key) in spicyOption"
+          :label="item.value"
+        ) {{ item.label }}
+      .mg-bottom
+        el-checkbox(v-for="(detail, key) in remark" v-model="detail.check") {{ detail.name }}
+      el-radio-group(v-model="sauce")
+        el-radio.mg-bottom(
+          v-for="(item, key) in sauceOption"
+          :label="item.value"
+        ) {{ item.label }}
     div(style="text-align:center")
-      el-button.cp-btn(
+      el-button(
         @click="copy()"
-        size="mini"
+        size="small"
         icon="el-icon-document-copy"
-      ) 複製點餐欄
+      ) 複製
+        i(class="el-icon-document-copy")
 </template>
 
 <script>
@@ -63,27 +78,39 @@ el-container
           category[1].forEach(item => {
             if (item.count > 0) {
               const single = item.name
-                + '(' + item.count + ')'
+                + '(' + item.count + ') '
                 + '$' + (item.count * item.prize);
               temp += single + '\n';
             }
           })
         });
+        if (this.spicy !== 0) {
+          hasRemark = true;
+          const spicyText = this.spicyOption.filter(item => item.value === this.spicy);
+          temp += spicyText[0].label + " "
+        }
         this.remark.forEach(item => {
           if (item.check) {
             hasRemark = true;
             temp += item.name + " "
           }
         });
+        if (this.sauce !== 0) {
+          hasRemark = true;
+          const sauceText = this.sauceOption.filter(item => item.value === this.sauce);
+          temp += sauceText[0].label + " "
+        }
         if (hasRemark) {
           temp += "\n";
         }
-        temp += "\n共計" + this.total.count + "樣 " + this.total.prize + " 元";
+        temp += "\n共計" + this.total.count + " 樣 " + this.total.prize + " 元";
         return temp;
       },
     },
     data() {
       return {
+        spicy: 0,
+        sauce: 0,
         tabs: [
           {
             name: 'meat',
@@ -440,40 +467,52 @@ el-container
         },
         remark: [
           {
-            name: '微辣',
-            check: false
-          },
-          {
-            name: '小辣',
-            check: false
-          },
-          {
-            name: '中辣',
-            check: false
-          },
-          {
-            name: '大辣',
-            check: false
-          },
-          {
             name: '不要香油',
             check: false
           },
           {
             name: '不要榨菜',
             check: false
+          }
+        ],
+        spicyOption: [
+          {
+            label: '不辣',
+            value: 0
           },
           {
-            name: '不加醬(只有胡椒、香油)',
-            check: false
+            label: '微辣',
+            value: 1
           },
           {
-            name: '醬多(重口味)',
-            check: false
+            label: '小辣',
+            value: 2
           },
           {
-            name: '醬少(清淡)',
-            check: false
+            label: '中辣',
+            value: 3
+          },
+          {
+            label: '大辣',
+            value: 4
+          },
+        ],
+        sauceOption: [
+          {
+            label: '醬正常',
+            value: 0
+          },
+          {
+            label: '不加醬(只有胡椒、香油)',
+            value: 1
+          },
+          {
+            label: '醬少(清淡)',
+            value: 2
+          },
+          {
+            label: '醬多(重口味)',
+            value: 3
           },
         ],
       }
@@ -483,14 +522,19 @@ el-container
         this.current = category;
       },
       copy() {
-        if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(this.text).then(()=> {
-            this.$notify({
-              type: 'success',
-              title: '成功複製',
-            });
-          });
-        } else if (this.$refs.inputRef.value) {
+        // if (navigator.clipboard && window.isSecureContext) {
+        //   navigator.clipboard.writeText(this.text)
+        //     .then(()=> {
+        //       this.$notify({
+        //         type: 'success',
+        //         title: '成功複製',
+        //       });
+        //     })
+        //     .catch((error) => {
+        //       alert(error);
+        //     });
+        // }
+        if (this.$refs.inputRef.value) {
           this.$refs.inputRef.value = this.text;
           this.$el.querySelector('textarea').select();
           document.execCommand('copy');
@@ -518,17 +562,11 @@ el-container
     line-height: 60px;
   }
   .footer {
-    text-align: left;
+    display: flex;
+    align-items: center;
     background-color: #DEC298;
     color: #333;
     padding: 5px 10px 5px 10px;
-    .cp-btn {
-      margin-top: 10px;
-      margin-left: 20px;
-    }
-    .total {
-      margin-right: 10px;
-    }
   }
   .product {
     height: 60px;
@@ -545,5 +583,11 @@ el-container
   }
   .name {
     flex: 1;
+  }
+  .flavor {
+    flex: 1;
+  }
+  .mg-bottom {
+    margin-bottom: 5px;
   }
 </style>
