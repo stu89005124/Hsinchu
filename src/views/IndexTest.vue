@@ -43,7 +43,7 @@ el-container
           :label="item.value"
         ) {{ item.label }}
     div(style="text-align:center")
-      el-button(
+      el-button.cp-btn(
         @click="copy()"
         size="small"
         icon="el-icon-document-copy"
@@ -522,22 +522,11 @@ el-container
         this.current = category;
       },
       copy() {
-        // if (navigator.clipboard && window.isSecureContext) {
-        //   navigator.clipboard.writeText(this.text)
-        //     .then(()=> {
-        //       this.$notify({
-        //         type: 'success',
-        //         title: '成功複製',
-        //       });
-        //     })
-        //     .catch((error) => {
-        //       alert(error);
-        //     });
-        // }
         if (this.$refs.inputRef.value) {
           this.$refs.inputRef.value = this.text;
           this.$el.querySelector('textarea').select();
           document.execCommand('copy');
+          this.$el.querySelector('.cp-btn').focus();
           this.$notify({
             type: 'success',
             title: '成功複製',
