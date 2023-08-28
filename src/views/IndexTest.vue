@@ -17,7 +17,7 @@ el-container
           v-for="(item, index) in currentMenu"
           :class="[item.count > 0 ? 'selected' : '']"
         )
-          span.name {{ item.name }} &nbsp; ${{ item.prize }}
+          span.name {{ item.name }} {{ item.remark }} &nbsp; ${{ item.prize }}
           el-input-number.btn(
             :disabled="item.disable"
             :min="0"
@@ -73,7 +73,6 @@ el-container
       },
       text: function () {
         let temp = '';
-        let hasRemark = false;
         Object.entries(this.menu).forEach(category => {
           category[1].forEach(item => {
             if (item.count > 0) {
@@ -84,26 +83,7 @@ el-container
             }
           })
         });
-        if (this.spicy !== 0) {
-          hasRemark = true;
-          const spicyText = this.spicyOption.filter(item => item.value === this.spicy);
-          temp += spicyText[0].label + " "
-        }
-        this.remark.forEach(item => {
-          if (item.check) {
-            hasRemark = true;
-            temp += item.name + " "
-          }
-        });
-        if (this.sauce !== 0) {
-          hasRemark = true;
-          const sauceText = this.sauceOption.filter(item => item.value === this.sauce);
-          temp += sauceText[0].label + " "
-        }
-        if (hasRemark) {
-          temp += "\n";
-        }
-        temp += "\n共計" + this.total.count + " 樣 " + this.total.prize + " 元";
+
         return temp;
       },
     },
@@ -134,73 +114,85 @@ el-container
         menu: {
           meat: [
             {
-              name: '豬腱肉(1兩)',
+              name: '豬腱肉',
+              remark: '(1兩)',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '豬耳朵',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '豬肉片',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '雞肉串',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '豬心',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '豬皮',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '鴨胗',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '鴨心',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
-              name: '豆腐鴨血(冬天限定)',
+              name: '豆腐鴨血',
+              remark: '(冬天限定)',
               prize: 35,
               count: 0,
               disable: true
             },
             {
-              name: '大腸(1兩)',
+              name: '大腸',
+              remark: '(1兩)',
               prize: 50,
               count: 0,
               disable: false
             },
             {
               name: '牛肉片',
+              remark: '',
               prize: 50,
               count: 0,
               disable: false
             },
             {
               name: '鴨腸',
+              remark: '',
               prize: 50,
               count: 0,
               disable: false
@@ -209,96 +201,112 @@ el-container
           vegetable: [
             {
               name: '蘿蔔',
+              remark: '',
               prize: 10,
               count: 0,
               disable: false
             },
             {
               name: '高麗菜',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '空心菜',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '花椰菜',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '大陸妹',
+              remark: '',
               prize: 35,
               count: 0,
               disable: true
             },
             {
               name: '娃娃菜',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '水蓮',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '金針菇',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '秀珍菇',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '四季豆',
+              remark: '',
               prize: 35,
               count: 0,
               disable: true
             },
             {
               name: '玉米筍',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '小黃瓜',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '香菇',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '青椒',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '絲瓜',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
             },
             {
               name: '木耳',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
@@ -307,24 +315,28 @@ el-container
           noodle: [
             {
               name: '科學麵',
+              remark: '',
               prize: 20,
               count: 0,
               disable: false
             },
             {
               name: '冬粉',
+              remark: '',
               prize: 20,
               count: 0,
               disable: false
             },
             {
               name: '烏龍麵',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '關廟麵',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
@@ -332,133 +344,162 @@ el-container
           ],
           other: [
             {
-              name: '水晶餃(2顆)',
+              name: '水晶餃',
+              remark: '(2顆)',
               prize: 10,
               count: 0,
               disable: false
             },
             {
-              name: '乳酪絲起司丸(1顆)',
+              name: '乳酪絲起司丸',
+              remark: '(1顆)',
               prize: 10,
               count: 0,
               disable: false
             },
             {
-              name: '海帶(1片)',
+              name: '海帶',
+              remark: '(1片)',
               prize: 10,
               count: 0,
               disable: false
             },
             {
-              name: '小豆干(3塊)',
+              name: '小豆干',
+              remark: '(3塊)',
               prize: 20,
               count: 0,
               disable: false
             },
             {
-              name: '蟹肉棒(3個)',
+              name: '蟹肉棒',
+              remark: '(3個)',
               prize: 20,
               count: 0,
               disable: false
             },
             {
-              name: '甜不辣(3片)',
+              name: '甜不辣',
+              remark: '(3片)',
               prize: 20,
               count: 0,
               disable: false
             },
             {
               name: '招牌米血',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '芋頭糕',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '大豆皮',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '黑豆干',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '蘭花干',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '竹輪',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '豆包',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
               name: '米腸',
+              remark: '',
               prize: 25,
               count: 0,
               disable: false
             },
             {
+              name: '魚蛋(魚卵卷)',
+              remark: '',
+              prize: 30,
+              count: 0,
+              disable: false
+            },
+            {
               name: '貢丸',
+              remark: '',
               prize: 30,
               count: 0,
               disable: false
             },
             {
               name: '魚餃',
+              remark: '',
               prize: 30,
               count: 0,
               disable: false
             },
             {
               name: '黃金魚蛋',
+              remark: '',
               prize: 30,
               count: 0,
               disable: false
             },
             {
               name: '鳥蛋',
+              remark: '',
               prize: 30,
               count: 0,
               disable: false
             },
             {
               name: '素腰花',
+              remark: '',
               prize: 30,
               count: 0,
               disable: false
             },
             {
               name: '大黑輪',
+              remark: '',
               prize: 30,
               count: 0,
               disable: false
             },
             {
               name: '鑫鑫腸',
+              remark: '',
               prize: 30,
               count: 0,
               disable: false
             },
             {
               name: '百頁豆腐',
+              remark: '',
               prize: 35,
               count: 0,
               disable: false
@@ -522,16 +563,36 @@ el-container
         this.current = category;
       },
       copy() {
-        if (this.$refs.inputRef.value) {
-          this.$refs.inputRef.value = this.text;
-          this.$el.querySelector('textarea').select();
-          document.execCommand('copy');
-          this.$el.querySelector('.cp-btn').focus();
-          this.$notify({
-            type: 'success',
-            title: '成功複製',
-          });
+        let hasRemark = false;
+        let copyText = this.text;
+        if (this.spicy !== 0) {
+          hasRemark = true;
+          const spicyText = this.spicyOption.filter(item => item.value === this.spicy);
+          copyText += spicyText[0].label + " "
         }
+        this.remark.forEach(item => {
+          if (item.check) {
+            hasRemark = true;
+            copyText += item.name + " "
+          }
+        });
+        if (this.sauce !== 0) {
+          hasRemark = true;
+          const sauceText = this.sauceOption.filter(item => item.value === this.sauce);
+          copyText += sauceText[0].label + " "
+        }
+        if (hasRemark) {
+          copyText += "\n";
+        }
+        copyText += "\n共計 " + this.total.count + " 樣 " + this.total.prize + " 元";
+        this.$refs.inputRef.value = copyText;
+        this.$el.querySelector('textarea').select();
+        document.execCommand('copy');
+        this.$el.querySelector('.cp-btn').focus();
+        this.$notify({
+          type: 'success',
+          title: '成功複製',
+        });
       }
     }
   }
