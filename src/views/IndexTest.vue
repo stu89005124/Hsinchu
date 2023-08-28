@@ -28,8 +28,11 @@ el-container
   .footer
     .flavor
       .mg-bottom
-        i(class="el-icon-shopping-cart-2")
-        span 共計{{ total.count }}樣 {{ total.prize }}元
+        el-tooltip(placement="top" :disabled="this.text === ''")
+          pre(slot="content") {{ this.text }}
+          span.total
+            el-link 共計{{ total.count }}樣 {{ total.prize }}元
+              i(class="el-icon-shopping-bag-1 el-icon--right")
       el-radio-group(v-model="spicy")
         el-radio.mg-bottom(
           v-for="(item, key) in spicyOption"
@@ -48,7 +51,6 @@ el-container
         size="small"
         icon="el-icon-document-copy"
       ) 複製
-        i(class="el-icon-document-copy")
 </template>
 
 <script>
