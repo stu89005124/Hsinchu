@@ -345,6 +345,20 @@ el-container
             }
           ],
           other: [
+          {
+              name: '章魚丸',
+              remark: '(1顆)',
+              prize: 10,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '魚包蛋',
+              remark: '(1顆)',
+              prize: 10,
+              count: 0,
+              disable: false
+            },
             {
               name: '水晶餃',
               remark: '(2顆)',
@@ -494,6 +508,13 @@ el-container
             },
             {
               name: '鑫鑫腸',
+              remark: '',
+              prize: 30,
+              count: 0,
+              disable: false
+            },
+            {
+              name: '魚板豆腐',
               remark: '',
               prize: 30,
               count: 0,
