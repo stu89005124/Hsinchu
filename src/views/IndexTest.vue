@@ -176,7 +176,7 @@ el-container
               remark: '(冬天限定)',
               prize: 35,
               count: 0,
-              disable: true
+              disable: false
             },
             {
               name: '大腸',
