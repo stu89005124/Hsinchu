@@ -234,7 +234,7 @@ el-container
               remark: '',
               prize: 35,
               count: 0,
-              disable: true
+              disable: false
             },
             {
               name: '娃娃菜',
