@@ -1,0 +1,416 @@
+{
+  "meat": [
+    {
+      "name": "豬腱肉",
+      "remark": "(1兩)",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "豬耳朵",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "豬肉片",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "雞肉串",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "豬心",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "豬皮",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "鴨胗",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "鴨心",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "豆腐鴨血",
+      "remark": "(冬天限定)",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "大腸",
+      "remark": "(1兩)",
+      "prize": 50,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "牛肉片",
+      "remark": "",
+      "prize": 50,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "鴨腸",
+      "remark": "",
+      "prize": 50,
+      "count": 0,
+      "disable": false
+    }
+  ],
+  "vegetable": [
+    {
+      "name": "蘿蔔",
+      "remark": "",
+      "prize": 10,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "高麗菜",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "空心菜",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "花椰菜",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "大陸妹",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "娃娃菜",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "水蓮",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "金針菇",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "秀珍菇",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "四季豆",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "玉米筍",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "小黃瓜",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "香菇",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "青椒",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "絲瓜",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "木耳",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    }
+  ],
+  "noodle": [
+    {
+      "name": "科學麵",
+      "remark": "",
+      "prize": 20,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "冬粉",
+      "remark": "",
+      "prize": 20,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "烏龍麵",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "關廟麵",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    }
+  ],
+  "other": [
+    {
+      "name": "章魚丸",
+      "remark": "(1顆)",
+      "prize": 10,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "魚包蛋",
+      "remark": "(1顆)",
+      "prize": 10,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "水晶餃",
+      "remark": "(2顆)",
+      "prize": 10,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "乳酪絲起司丸",
+      "remark": "(1顆)",
+      "prize": 10,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "海帶",
+      "remark": "(1片)",
+      "prize": 10,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "小豆干",
+      "remark": "(3塊)",
+      "prize": 20,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "蟹肉棒",
+      "remark": "(3個)",
+      "prize": 20,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "甜不辣",
+      "remark": "(3片)",
+      "prize": 20,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "招牌米血",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "芋頭糕",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "大豆皮",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "黑豆干",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "蘭花干",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "竹輪",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "豆包",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "米腸",
+      "remark": "",
+      "prize": 25,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "魚蛋(魚卵卷)",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "貢丸",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "魚餃",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "黃金魚蛋",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "鳥蛋",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "素腰花",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "大黑輪",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "鑫鑫腸",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "魚板豆腐",
+      "remark": "",
+      "prize": 30,
+      "count": 0,
+      "disable": false
+    },
+    {
+      "name": "百頁豆腐",
+      "remark": "",
+      "prize": 35,
+      "count": 0,
+      "disable": false
+    }
+  ]
+}
