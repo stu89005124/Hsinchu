@@ -40,7 +40,7 @@
       "remark": "",
       "prize": 35,
       "count": 0,
-      "disable": false
+      "disable": true
     },
     {
       "name": "鴨胗",
@@ -61,7 +61,7 @@
       "remark": "(冬天限定)",
       "prize": 35,
       "count": 0,
-      "disable": false
+      "disable": true
     },
     {
       "name": "大腸",
@@ -119,7 +119,7 @@
       "remark": "",
       "prize": 35,
       "count": 0,
-      "disable": false
+      "disable": true
     },
     {
       "name": "娃娃菜",
@@ -154,7 +154,7 @@
       "remark": "",
       "prize": 35,
       "count": 0,
-      "disable": false
+      "disable": true
     },
     {
       "name": "玉米筍",
@@ -368,7 +368,7 @@
       "remark": "",
       "prize": 30,
       "count": 0,
-      "disable": false
+      "disable": true
     },
     {
       "name": "鳥蛋",
